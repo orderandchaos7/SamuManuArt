@@ -205,6 +205,25 @@ document.addEventListener('keydown', (e) => {
     } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         showPrev();
+    } else if (e.key === 'Tab') {
+        // Focus trap: keep Tab / Shift+Tab cycling among the modal's
+        // focusable controls so focus can't escape to the backgrounded page.
+        const focusable = [closeBtn, prevBtn, nextBtn];
+        const active = document.activeElement;
+        const idx = focusable.indexOf(active);
+        if (e.shiftKey) {
+            // Shift+Tab on the first control (or outside the set) wraps to last.
+            if (idx <= 0) {
+                e.preventDefault();
+                focusable[focusable.length - 1].focus();
+            }
+        } else {
+            // Tab on the last control (or outside the set) wraps to first.
+            if (idx === -1 || idx === focusable.length - 1) {
+                e.preventDefault();
+                focusable[0].focus();
+            }
+        }
     }
 });
 
