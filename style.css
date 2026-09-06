@@ -384,28 +384,6 @@ footer .footer-bio {
     line-height: 1.6;
 }
 
-footer .footer-social {
-    margin: 1rem 0;
-    display: flex;
-    gap: 18px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-footer .footer-social a {
-    font-family: 'Fredoka One', cursive;
-    color: var(--accent-color);
-    text-decoration: none;
-    border-bottom: 2px dashed var(--accent-color);
-    padding-bottom: 2px;
-    transition: transform 0.2s ease;
-    display: inline-block;
-}
-
-footer .footer-social a:hover {
-    transform: translateY(-2px) rotate(-2deg);
-}
-
 footer .footer-copyright {
     font-family: 'Fredoka One', cursive;
     color: var(--accent-color);
