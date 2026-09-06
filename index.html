@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Samu Manu Art Gallery showcasing art pieces by Samu and Manu.">
     <title>Samu and Manu's Art Gallery</title>
+
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Samu and Manu's Art Gallery">
+    <meta property="og:description" content="A journey of exploring the world through colours, shapes, and imagination by Samu and Manu.">
+    <meta property="og:image" content="images/painting28.jpg">
     
     <!-- Google Fonts: Comic Neue for body, Fredoka One for headings -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,6 +122,77 @@
             background: rgba(255,255,255,0.8);
             padding: 10px;
             border-radius: 10px;
+        }
+
+        /* --- Controls: Filters + Search --- */
+        .controls {
+            max-width: 1000px;
+            margin: 1.5rem auto 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            color: var(--accent-color);
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px) rotate(-2deg);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-color);
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-color);
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            padding: 8px 18px;
+            outline: none;
+            min-width: 220px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 3px #fad0c4;
+        }
+
+        .no-results {
+            text-align: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            padding: 40px 10px;
+            grid-column: 1 / -1;
         }
 
         /* --- Gallery Grid --- */
@@ -258,9 +335,102 @@
             right: 30px;
             color: white;
             font-size: 40px;
+            line-height: 1;
             cursor: pointer;
             user-select: none;
+            background: none;
+            border: none;
+            padding: 0;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Modal previous/next navigation buttons */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 50px;
+            line-height: 1;
+            background: rgba(0,0,0,0.3);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .nav-btn.prev { left: 20px; }
+        .nav-btn.next { right: 20px; }
+
+        .close-btn:focus-visible,
+        .nav-btn:focus-visible,
+        .art-card:focus-visible,
+        .filter-btn:focus-visible,
+        .search-input:focus-visible {
+            outline: 3px solid #fad0c4;
+            outline-offset: 2px;
+        }
+
+        .art-card:focus-visible {
+            z-index: 10;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem 3rem;
+            margin-top: 20px;
+            background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+            position: relative;
+            z-index: 2;
+        }
+
+        footer .footer-bio {
+            max-width: 700px;
+            margin: 0 auto 1rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        footer .footer-social {
+            margin: 1rem 0;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-social a {
+            font-family: 'Fredoka One', cursive;
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 2px dashed var(--accent-color);
+            padding-bottom: 2px;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        footer .footer-social a:hover {
+            transform: translateY(-2px) rotate(-2deg);
+        }
+
+        footer .footer-copyright {
+            font-family: 'Fredoka One', cursive;
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-top: 1rem;
         }
 
         /* Responsive Tweaks */
@@ -278,7 +448,15 @@
             .art-card:hover {
                  transform: scale(1.02) !important;
             }
+            .art-card:focus-visible {
+                transform: rotate(0deg);
+            }
             .subtitle { font-size: 1rem; }
+            .nav-btn { width: 44px; height: 44px; font-size: 36px; }
+            .nav-btn.prev { left: 8px; }
+            .nav-btn.next { right: 8px; }
+            .search-input { min-width: 0; width: 100%; }
+            .search-wrapper { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
@@ -299,6 +477,19 @@
         <div class="subtitle">
             <p>A journey of exploring the world through colours, shapes, and imagination. Their art is not about perfection, it's about curiosity, learning, and the joy of expression.</p>
         </div>
+
+        <div class="controls">
+            <div class="filters" id="year-filters" role="group" aria-label="Filter artworks by year">
+                <button type="button" class="filter-btn active" data-year="all">All</button>
+                <button type="button" class="filter-btn" data-year="2025">2025</button>
+                <button type="button" class="filter-btn" data-year="2024">2024</button>
+                <button type="button" class="filter-btn" data-year="2023">2023</button>
+                <button type="button" class="filter-btn" data-year="Unknown">Unknown</button>
+            </div>
+            <div class="search-wrapper">
+                <input type="search" id="search-input" class="search-input" placeholder="Search by title..." aria-label="Search artworks by title">
+            </div>
+        </div>
     </header>
 
     <main>
@@ -308,11 +499,24 @@
     </main>
 
     <!-- Modal for viewing images -->
-    <div class="modal" id="imageModal" onclick="closeModal()">
-        <span class="close-btn">&times;</span>
+    <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-label="Artwork viewer">
+        <button type="button" class="close-btn" id="closeBtn" aria-label="Close">&times;</button>
+        <button type="button" class="nav-btn prev" id="prevBtn" aria-label="Previous artwork">&#8249;</button>
         <img class="modal-img" id="modalImage" src="" alt="">
+        <button type="button" class="nav-btn next" id="nextBtn" aria-label="Next artwork">&#8250;</button>
         <div class="modal-caption" id="modalCaption"></div>
     </div>
+
+    <footer>
+        <p class="footer-bio">Made with love by Samu and Manu, two young artists painting their way through colours, shapes, and endless imagination. Thank you for wandering through their little gallery!</p>
+        <div class="footer-social">
+            <!-- Optional social links: update the href values when accounts are ready -->
+            <a href="#" aria-label="Instagram (coming soon)">Instagram</a>
+            <a href="#" aria-label="Facebook (coming soon)">Facebook</a>
+            <a href="#" aria-label="Email (coming soon)">Email</a>
+        </div>
+        <p class="footer-copyright">&copy; <span id="footer-year"></span> Samu and Manu's Art Gallery</p>
+    </footer>
 
     <script>
         // ==========================================
@@ -357,62 +561,195 @@
             { src: "images/painting21.jpg", title: "Little Krishna", date: "Unknown" },
             { src: "images/painting22.jpg", title: "Future is Promising", date: "Unknown" },
             { src: "images/painting23.jpg", title: "Natkhat Krishna", date: "Unknown" },
-            { src: "images/painting24.jpg", title: "Family Trip", date: "Unknown" }
+            { src: "images/painting24.jpg", title: "Family Trip", date: "Unknown" },
+            { src: "images/painting35.jpg", title: "Untitled", date: "Unknown" }
         ];
 
         const galleryContainer = document.getElementById('gallery-container');
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
         const modalCap = document.getElementById('modalCaption');
+        const closeBtn = document.getElementById('closeBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const searchInput = document.getElementById('search-input');
+        const yearFilters = document.getElementById('year-filters');
+
+        // Offline-safe inline SVG placeholder used when an image fails to load.
+        const FALLBACK_IMG = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='300'%20height='250'%20viewBox='0%200%20300%20250'%3E%3Crect%20width='300'%20height='250'%20fill='%23fdfcf0'/%3E%3Crect%20x='8'%20y='8'%20width='284'%20height='234'%20fill='none'%20stroke='%23ff6b6b'%20stroke-width='3'%20stroke-dasharray='10%208'/%3E%3Ccircle%20cx='150'%20cy='105'%20r='34'%20fill='none'%20stroke='%23ff6b6b'%20stroke-width='3'/%3E%3Ctext%20x='150'%20y='185'%20font-family='sans-serif'%20font-size='18'%20fill='%23ff6b6b'%20text-anchor='middle'%3EArt%20coming%20soon%3C/text%3E%3C/svg%3E";
+
+        // Derive a filterable year bucket from a free-form date string.
+        // Returns "2025"/"2024"/"2023"/... or "Unknown" when no 4-digit year found.
+        function getYear(dateStr) {
+            const match = /(\d{4})/.exec(dateStr || '');
+            return match ? match[1] : 'Unknown';
+        }
+
+        // Assign a stable rotation once per artwork so cards do not jump on re-render.
+        // Range -3deg..3deg for an organic feel (mobile disables it via media query).
+        artworks.forEach((art, index) => {
+            art._rotation = (index % 7) - 3; // deterministic -3..3
+            art._year = getYear(art.date);
+        });
+
+        // Current state
+        let activeYear = 'all';
+        let searchTerm = '';
+        let visibleItems = artworks.slice(); // currently rendered (filtered) list
+        let currentIndex = -1;                // index into visibleItems for the lightbox
+        let lastFocusedCard = null;           // element to restore focus to on close
 
         // Render Gallery
         function renderGallery(items) {
-            galleryContainer.innerHTML = ''; 
+            visibleItems = items;
+            galleryContainer.innerHTML = '';
+
+            if (items.length === 0) {
+                const empty = document.createElement('p');
+                empty.className = 'no-results';
+                empty.textContent = 'No artworks match your search.';
+                galleryContainer.appendChild(empty);
+                return;
+            }
 
             items.forEach((art, index) => {
-                // Create Card
                 const card = document.createElement('div');
                 card.className = 'art-card';
-                
-                // Randomize rotation slightly for organic feel (-3deg to 3deg)
-                // Note: CSS Media query disables this on mobile for better usability
-                const rotation = Math.floor(Math.random() * 6) - 3;
-                card.style.setProperty('--rotation', `${rotation}deg`);
-                
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', `View artwork: ${art.title}, ${art.date}`);
+
+                // Stable rotation per artwork
+                card.style.setProperty('--rotation', `${art._rotation}deg`);
                 // Animation delay for staggered load
                 card.style.animationDelay = `${index * 0.05}s`;
 
-                // Inner HTML
-                card.innerHTML = `
-                    <img src="${art.src}" alt="${art.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Art+Loading...'">
-                    <div class="card-info">
-                        <h3>${art.title}</h3>
-                        <p>${art.date}</p>
-                    </div>
-                `;
+                const img = document.createElement('img');
+                img.src = art.src;
+                img.alt = art.title;
+                img.loading = 'lazy';
+                // Guard against infinite onerror loops: unset handler before swapping src.
+                img.onerror = function () {
+                    this.onerror = null;
+                    this.src = FALLBACK_IMG;
+                };
 
-                // Click event for Lightbox
-                card.onclick = () => openModal(art.src, `${art.title} (${art.date})`);
+                const info = document.createElement('div');
+                info.className = 'card-info';
+                const h3 = document.createElement('h3');
+                h3.textContent = art.title;
+                const p = document.createElement('p');
+                p.textContent = art.date;
+                info.appendChild(h3);
+                info.appendChild(p);
+
+                card.appendChild(img);
+                card.appendChild(info);
+
+                const open = () => openModal(index, card);
+                card.addEventListener('click', open);
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                        e.preventDefault();
+                        open();
+                    }
+                });
 
                 galleryContainer.appendChild(card);
             });
         }
 
-        // Modal Logic
-        function openModal(src, caption) {
+        // Single source of truth: apply year filter + search, then re-render.
+        function applyFilters() {
+            const term = searchTerm.trim().toLowerCase();
+            const filtered = artworks.filter((art) => {
+                const yearOk = activeYear === 'all' || art._year === activeYear;
+                const searchOk = term === '' || art.title.toLowerCase().includes(term);
+                return yearOk && searchOk;
+            });
+            renderGallery(filtered);
+        }
+
+        // ---- Lightbox ----
+        function showAt(index) {
+            if (visibleItems.length === 0) return;
+            // Wrap-around across the visible set
+            currentIndex = (index + visibleItems.length) % visibleItems.length;
+            const art = visibleItems[currentIndex];
+            modalImg.onerror = function () {
+                this.onerror = null;
+                this.src = FALLBACK_IMG;
+            };
+            modalImg.src = art.src;
+            modalImg.alt = art.title;
+            modalCap.textContent = `${art.title} (${art.date})`;
+        }
+
+        function openModal(index, triggerEl) {
+            lastFocusedCard = triggerEl || document.activeElement;
+            showAt(index);
             modal.classList.add('active');
-            modalImg.src = src;
-            modalCap.textContent = caption;
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            closeBtn.focus();
         }
 
         function closeModal() {
             modal.classList.remove('active');
             document.body.style.overflow = '';
+            currentIndex = -1;
+            if (lastFocusedCard && typeof lastFocusedCard.focus === 'function') {
+                lastFocusedCard.focus();
+            }
+            lastFocusedCard = null;
         }
 
+        function showNext() { showAt(currentIndex + 1); }
+        function showPrev() { showAt(currentIndex - 1); }
+
+        // ---- Event wiring ----
+        closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeModal(); });
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+
+        // Click on the dark backdrop (not the image/buttons/caption) closes the modal.
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                showNext();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                showPrev();
+            }
+        });
+
+        yearFilters.addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+            activeYear = btn.dataset.year;
+            yearFilters.querySelectorAll('.filter-btn').forEach((b) => {
+                b.classList.toggle('active', b === btn);
+            });
+            applyFilters();
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            applyFilters();
+        });
+
+        // Footer year
+        const footerYear = document.getElementById('footer-year');
+        if (footerYear) footerYear.textContent = new Date().getFullYear();
+
         // Initialize
-        renderGallery(artworks);
+        applyFilters();
 
     </script>
 </body>
