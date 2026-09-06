@@ -5,282 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Samu Manu Art Gallery showcasing art pieces by Samu and Manu.">
     <title>Samu and Manu's Art Gallery</title>
+
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Samu and Manu's Art Gallery">
+    <meta property="og:description" content="A journey of exploring the world through colours, shapes, and imagination by Samu and Manu.">
+    <meta property="og:image" content="images/painting28.jpg">
     
     <!-- Google Fonts: Comic Neue for body, Fredoka One for headings -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Fredoka+One&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #fdfcf0; /* Warm paper color */
-            --card-bg: #ffffff;
-            --text-color: #4a4a4a;
-            --accent-color: #ff6b6b; /* Playful coral red */
-            --shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
 
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Comic Neue', cursive;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
-            background-size: 20px 20px;
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* --- Background Animation --- */
-        .background-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .shape {
-            position: absolute;
-            bottom: -100px;
-            opacity: 0.6;
-            animation: floatUp 15s infinite linear;
-        }
-
-        /* Define specific shapes using CSS */
-        .shape.circle {
-            width: 60px;
-            height: 60px;
-            background-color: #ffcccc;
-            border-radius: 50%;
-        }
-        .shape.square {
-            width: 50px;
-            height: 50px;
-            background-color: #ccffcc;
-            transform: rotate(45deg);
-        }
-        .shape.triangle {
-            width: 0;
-            height: 0;
-            border-left: 30px solid transparent;
-            border-right: 30px solid transparent;
-            border-bottom: 50px solid #ccccff;
-        }
-
-        /* Vary animation duration and positions */
-        .shape:nth-child(1) { left: 10%; animation-duration: 25s; animation-delay: 0s; transform: scale(0.8); }
-        .shape:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 5s; background-color: #fff5cc; } 
-        .shape:nth-child(3) { left: 40%; animation-duration: 22s; animation-delay: 2s; }
-        .shape:nth-child(4) { left: 70%; animation-duration: 20s; animation-delay: 8s; background-color: #e0f7fa; }
-        .shape:nth-child(5) { left: 85%; animation-duration: 28s; animation-delay: 1s; transform: scale(1.2); }
-        .shape:nth-child(6) { left: 55%; animation-duration: 24s; animation-delay: 12s; background-color: #f3e5f5; border-radius: 50%; width: 40px; height: 40px; }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* --- Header Section --- */
-        header {
-            text-align: center;
-            padding: 3rem 1rem 1rem; /* Slightly less padding since filters are gone */
-            background: linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
-            position: relative;
-            z-index: 2;
-        }
-
-        h1 {
-            font-family: 'Fredoka One', cursive;
-            font-size: 3.5rem;
-            color: var(--accent-color);
-            margin: 0;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 0px #fad0c4;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 1rem auto;
-            line-height: 1.6;
-            font-weight: bold;
-            background: rgba(255,255,255,0.8);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        /* --- Gallery Grid --- */
-        main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            z-index: 2;
-            position: relative;
-        }
-
-        .gallery {
-            display: grid;
-            /* Adjusted minmax to 260px for better fit on small mobile screens */
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 40px;
-            padding-bottom: 50px;
-        }
-
-        /* --- Polaroid Card Style --- */
-        .art-card {
-            background: var(--card-bg);
-            padding: 15px 15px 50px 15px; 
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            transform: rotate(var(--rotation)); 
-            border: 1px solid #eee;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
-            /* Ensure text doesn't blur during rotation on some browsers */
-            backface-visibility: hidden; 
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        .art-card:hover {
-            z-index: 10;
-            transform: scale(1.05) rotate(0deg) !important;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .art-card::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-left: 1px dashed rgba(0,0,0,0.1);
-            border-right: 1px dashed rgba(0,0,0,0.1);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 2;
-        }
-
-        .art-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border: 1px solid #ddd;
-            display: block;
-        }
-
-        .card-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            height: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .card-info h3 {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #333;
-            font-family: 'Comic Neue', cursive; 
-        }
-
-        .card-info p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        /* --- Lightbox Modal --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal.active {
-            display: flex;
-            animation: modalFadeIn 0.3s ease;
-        }
-        
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-img {
-            max-width: 90%;
-            max-height: 80vh;
-            border: 5px solid white;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .modal-caption {
-            color: white;
-            margin-top: 15px;
-            font-size: 1.5rem;
-            text-align: center;
-            font-family: 'Fredoka One', cursive;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            user-select: none;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-
-        /* Responsive Tweaks */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .gallery { 
-                grid-template-columns: 1fr; /* Full width on mobile */
-                gap: 30px; 
-                padding: 10px 20px;
-            }
-            .art-card { 
-                transform: rotate(0deg); /* No rotation on mobile for cleaner scroll */
-                margin-bottom: 10px;
-            } 
-            .art-card:hover {
-                 transform: scale(1.02) !important;
-            }
-            .subtitle { font-size: 1rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -299,6 +36,19 @@
         <div class="subtitle">
             <p>A journey of exploring the world through colours, shapes, and imagination. Their art is not about perfection, it's about curiosity, learning, and the joy of expression.</p>
         </div>
+
+        <div class="controls">
+            <div class="filters" id="year-filters" role="group" aria-label="Filter artworks by year">
+                <button type="button" class="filter-btn active" data-year="all">All</button>
+                <button type="button" class="filter-btn" data-year="2025">2025</button>
+                <button type="button" class="filter-btn" data-year="2024">2024</button>
+                <button type="button" class="filter-btn" data-year="2023">2023</button>
+                <button type="button" class="filter-btn" data-year="Unknown">Unknown</button>
+            </div>
+            <div class="search-wrapper">
+                <input type="search" id="search-input" class="search-input" placeholder="Search by title..." aria-label="Search artworks by title">
+            </div>
+        </div>
     </header>
 
     <main>
@@ -308,114 +58,25 @@
     </main>
 
     <!-- Modal for viewing images -->
-    <div class="modal" id="imageModal" onclick="closeModal()">
-        <span class="close-btn">&times;</span>
+    <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-label="Artwork viewer">
+        <button type="button" class="close-btn" id="closeBtn" aria-label="Close">&times;</button>
+        <button type="button" class="nav-btn prev" id="prevBtn" aria-label="Previous artwork">&#8249;</button>
         <img class="modal-img" id="modalImage" src="" alt="">
+        <button type="button" class="nav-btn next" id="nextBtn" aria-label="Next artwork">&#8250;</button>
         <div class="modal-caption" id="modalCaption"></div>
     </div>
 
-    <script>
-        // ==========================================
-        // CONFIGURATION: ADD NEW PAINTINGS HERE
-        // ==========================================
-        const artworks = [
-            // Just copy a line, paste it, and change the details!
-            { src: "images/painting28.jpg", title: "Shiva Parvati", date: "May 2025" },
-            { src: "images/painting27.jpg", title: "Sita Ramam 2.0", date: "April 2025" },
-            { src: "images/painting19.jpg", title: "The Night Sky", date: "April 2025" },
-            { src: "images/painting20.jpg", title: "A Cloudy Evening", date: "April 2025" },
-            { src: "images/painting29.jpg", title: "Pichwai Art", date: "2025" },
-            { src: "images/painting30.jpg", title: "Morpankh", date: "2025" },
-            { src: "images/painting31.jpg", title: "Banana", date: "2025" },
-            { src: "images/painting32.jpg", title: "House by Seashore", date: "2025" },
-            { src: "images/painting33.jpg", title: "Abstract Parrot", date: "2025" },
-            { src: "images/painting34.jpg", title: "Riverside", date: "2025" },
-            { src: "images/painting36.jpg", title: "Flower Vase", date: "2025" },
-            { src: "images/painting37.jpg", title: "Floral Night Lamp", date: "2025" },
-            { src: "images/painting38.jpg", title: "Glass Half Full", date: "2025" },
-            { src: "images/painting39.jpg", title: "Riverside 2", date: "2025" },
-            { src: "images/painting25.jpg", title: "Coconut Water", date: "September 2024" },
-            { src: "images/painting26.jpg", title: "Veermata Jijau", date: "July 2024" },
-            { src: "images/painting1.jpg", title: "Sita Ramam", date: "March 2024" },
-            { src: "images/painting4.jpg", title: "Happy Holi!", date: "March 2024" },
-            { src: "images/painting8.jpg", title: "Devotion", date: "January 2024" },
-            { src: "images/painting5.jpg", title: "Ganeshay Namah", date: "December 2023" },
-            { src: "images/painting6.jpg", title: "Family Time", date: "November 2023" },
-            { src: "images/painting7.jpg", title: "Shiv Parivar", date: "February 2023" },
-            { src: "images/painting2.jpg", title: "Jai Shree Krishna", date: "Unknown" },
-            { src: "images/painting3.jpg", title: "Warmth and Love", date: "Unknown" },
-            { src: "images/painting9.jpg", title: "Shivay", date: "Unknown" },
-            { src: "images/painting10.jpg", title: "Radha Krishna", date: "Unknown" },
-            { src: "images/painting11.jpg", title: "Tridevi", date: "Unknown" },
-            { src: "images/painting12.jpg", title: "Welcome to Dholakpur", date: "Unknown" },
-            { src: "images/painting13.jpg", title: "Shri Mann Narayan", date: "Unknown" },
-            { src: "images/painting14.jpg", title: "Durga Maa", date: "Unknown" },
-            { src: "images/painting15.jpg", title: "Jai Jagannath", date: "Unknown" },
-            { src: "images/painting16.jpg", title: "Jaanta Raja", date: "Unknown" },
-            { src: "images/painting17.jpg", title: "Bansuriwala", date: "Unknown" },
-            { src: "images/painting18.jpg", title: "Ganpati Bappa", date: "Unknown" },
-            { src: "images/painting21.jpg", title: "Little Krishna", date: "Unknown" },
-            { src: "images/painting22.jpg", title: "Future is Promising", date: "Unknown" },
-            { src: "images/painting23.jpg", title: "Natkhat Krishna", date: "Unknown" },
-            { src: "images/painting24.jpg", title: "Family Trip", date: "Unknown" }
-        ];
+    <footer>
+        <p class="footer-bio">Made with love by Samu and Manu, two young artists painting their way through colours, shapes, and endless imagination. Thank you for wandering through their little gallery!</p>
+        <div class="footer-social">
+            <!-- Optional social links: update the href values when accounts are ready -->
+            <a href="#" aria-label="Instagram (coming soon)">Instagram</a>
+            <a href="#" aria-label="Facebook (coming soon)">Facebook</a>
+            <a href="#" aria-label="Email (coming soon)">Email</a>
+        </div>
+        <p class="footer-copyright">&copy; <span id="footer-year"></span> Samu and Manu's Art Gallery</p>
+    </footer>
 
-        const galleryContainer = document.getElementById('gallery-container');
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImage');
-        const modalCap = document.getElementById('modalCaption');
-
-        // Render Gallery
-        function renderGallery(items) {
-            galleryContainer.innerHTML = ''; 
-
-            items.forEach((art, index) => {
-                // Create Card
-                const card = document.createElement('div');
-                card.className = 'art-card';
-                
-                // Randomize rotation slightly for organic feel (-3deg to 3deg)
-                // Note: CSS Media query disables this on mobile for better usability
-                const rotation = Math.floor(Math.random() * 6) - 3;
-                card.style.setProperty('--rotation', `${rotation}deg`);
-                
-                // Animation delay for staggered load
-                card.style.animationDelay = `${index * 0.05}s`;
-
-                // Inner HTML
-                card.innerHTML = `
-                    <img src="${art.src}" alt="${art.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Art+Loading...'">
-                    <div class="card-info">
-                        <h3>${art.title}</h3>
-                        <p>${art.date}</p>
-                    </div>
-                `;
-
-                // Click event for Lightbox
-                card.onclick = () => openModal(art.src, `${art.title} (${art.date})`);
-
-                galleryContainer.appendChild(card);
-            });
-        }
-
-        // Modal Logic
-        function openModal(src, caption) {
-            modal.classList.add('active');
-            modalImg.src = src;
-            modalCap.textContent = caption;
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Initialize
-        renderGallery(artworks);
-
-    </script>
+    <script src="gallery.js" defer></script>
 </body>
 </html>
-
-

@@ -1,0 +1,440 @@
+:root {
+    --bg-color: #fdfcf0; /* Warm paper color */
+    --card-bg: #ffffff;
+    --text-color: #4a4a4a;
+    --accent-color: #ff6b6b; /* Playful coral red */
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Comic Neue', cursive;
+    background-color: var(--bg-color);
+    background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- Background Animation --- */
+.background-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.shape {
+    position: absolute;
+    bottom: -100px;
+    opacity: 0.6;
+    animation: floatUp 15s infinite linear;
+}
+
+/* Define specific shapes using CSS */
+.shape.circle {
+    width: 60px;
+    height: 60px;
+    background-color: #ffcccc;
+    border-radius: 50%;
+}
+.shape.square {
+    width: 50px;
+    height: 50px;
+    background-color: #ccffcc;
+    transform: rotate(45deg);
+}
+.shape.triangle {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 50px solid #ccccff;
+}
+
+/* Vary animation duration and positions */
+.shape:nth-child(1) { left: 10%; animation-duration: 25s; animation-delay: 0s; transform: scale(0.8); }
+.shape:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 5s; background-color: #fff5cc; } 
+.shape:nth-child(3) { left: 40%; animation-duration: 22s; animation-delay: 2s; }
+.shape:nth-child(4) { left: 70%; animation-duration: 20s; animation-delay: 8s; background-color: #e0f7fa; }
+.shape:nth-child(5) { left: 85%; animation-duration: 28s; animation-delay: 1s; transform: scale(1.2); }
+.shape:nth-child(6) { left: 55%; animation-duration: 24s; animation-delay: 12s; background-color: #f3e5f5; border-radius: 50%; width: 40px; height: 40px; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- Header Section --- */
+header {
+    text-align: center;
+    padding: 3rem 1rem 1rem; /* Slightly less padding since filters are gone */
+    background: linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.5rem;
+    color: var(--accent-color);
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px #fad0c4;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 1rem auto;
+    line-height: 1.6;
+    font-weight: bold;
+    background: rgba(255,255,255,0.8);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* --- Controls: Filters + Search --- */
+.controls {
+    max-width: 1000px;
+    margin: 1.5rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.filter-btn {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--accent-color);
+    background: rgba(255,255,255,0.9);
+    border: 2px solid var(--accent-color);
+    border-radius: 25px;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px) rotate(-2deg);
+}
+
+.filter-btn.active {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: var(--shadow);
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-input {
+    font-family: 'Comic Neue', cursive;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-color);
+    background: rgba(255,255,255,0.9);
+    border: 2px solid var(--accent-color);
+    border-radius: 25px;
+    padding: 8px 18px;
+    outline: none;
+    min-width: 220px;
+    transition: box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 0 3px #fad0c4;
+}
+
+.no-results {
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    padding: 40px 10px;
+    grid-column: 1 / -1;
+}
+
+/* --- Gallery Grid --- */
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.gallery {
+    display: grid;
+    /* Adjusted minmax to 260px for better fit on small mobile screens */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 40px;
+    padding-bottom: 50px;
+}
+
+/* --- Polaroid Card Style --- */
+.art-card {
+    background: var(--card-bg);
+    padding: 15px 15px 50px 15px; 
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    transform: rotate(var(--rotation)); 
+    border: 1px solid #eee;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    /* Ensure text doesn't blur during rotation on some browsers */
+    backface-visibility: hidden; 
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.art-card:hover {
+    z-index: 10;
+    transform: scale(1.05) rotate(0deg) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.art-card::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-left: 1px dashed rgba(0,0,0,0.1);
+    border-right: 1px dashed rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.art-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    display: block;
+}
+
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+    font-family: 'Comic Neue', cursive; 
+}
+
+.card-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* --- Lightbox Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+}
+
+.modal.active {
+    display: flex;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-img {
+    max-width: 90%;
+    max-height: 80vh;
+    border: 5px solid white;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.modal-caption {
+    color: white;
+    margin-top: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    background: none;
+    border: none;
+    padding: 0;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Modal previous/next navigation buttons */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 50px;
+    line-height: 1;
+    background: rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.nav-btn:hover {
+    background: var(--accent-color);
+}
+
+.nav-btn.prev { left: 20px; }
+.nav-btn.next { right: 20px; }
+
+.close-btn:focus-visible,
+.nav-btn:focus-visible,
+.art-card:focus-visible,
+.filter-btn:focus-visible,
+.search-input:focus-visible {
+    outline: 3px solid #fad0c4;
+    outline-offset: 2px;
+}
+
+.art-card:focus-visible {
+    z-index: 10;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2.5rem 1rem 3rem;
+    margin-top: 20px;
+    background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+    position: relative;
+    z-index: 2;
+}
+
+footer .footer-bio {
+    max-width: 700px;
+    margin: 0 auto 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+footer .footer-social {
+    margin: 1rem 0;
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+footer .footer-social a {
+    font-family: 'Fredoka One', cursive;
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 2px dashed var(--accent-color);
+    padding-bottom: 2px;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+footer .footer-social a:hover {
+    transform: translateY(-2px) rotate(-2deg);
+}
+
+footer .footer-copyright {
+    font-family: 'Fredoka One', cursive;
+    color: var(--accent-color);
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 600px) {
+    h1 { font-size: 2.5rem; }
+    .gallery { 
+        grid-template-columns: 1fr; /* Full width on mobile */
+        gap: 30px; 
+        padding: 10px 20px;
+    }
+    .art-card { 
+        transform: rotate(0deg); /* No rotation on mobile for cleaner scroll */
+        margin-bottom: 10px;
+    } 
+    .art-card:hover {
+         transform: scale(1.02) !important;
+    }
+    .art-card:focus-visible {
+        transform: rotate(0deg);
+    }
+    .subtitle { font-size: 1rem; }
+    .nav-btn { width: 44px; height: 44px; font-size: 36px; }
+    .nav-btn.prev { left: 8px; }
+    .nav-btn.next { right: 8px; }
+    .search-input { min-width: 0; width: 100%; }
+    .search-wrapper { width: 100%; max-width: 300px; }
+}
